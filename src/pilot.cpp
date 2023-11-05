@@ -1,4 +1,3 @@
-
 /**
  * @file range_calculator.cpp
  * @author Luis Alves (lmbalves@gmail.com)
@@ -20,18 +19,30 @@
 #include <geometry_msgs/Vector3Stamped.h>
 #include <geometry_msgs/Twist.h>
 #include <sensor_msgs/Imu.h>
-#include <stonefish_ros/DVL.h>
+#include <cola2_msgs/DVL.h>
 #include <tf/tf.h>
 
 #include <Eigen/Core>
 #include <Eigen/Dense>
 #include <math.h>
-
+double distance(double x1, double y1,
+            double z1, double x2,
+            double y2, double z2);
 double speed, radius, des_yaw, des_z, roll, pitch, yaw, com_yaw, rel_heading, speed_X, speed_Y;
 double k_z = 1.1;
 double k = 4;
 double k_yaw = 0.03;
 double alpha  = 1;
+// double distance(double x1, double y1,
+//             double z1, double x2,
+//             double y2, double z2)
+// {
+//     double d = sqrt(pow(x2 - x1, 2) +
+//                 pow(y2 - y1, 2));
+
+//     ROS_INFO(" Distance is %f", d);
+//     return d;
+// }
 
 void quaternionCallback(const sensor_msgs::Imu::ConstPtr &msg)
 {
@@ -41,7 +52,7 @@ void quaternionCallback(const sensor_msgs::Imu::ConstPtr &msg)
   
 }
 
-void dvl_Callback(const stonefish_ros::DVL::ConstPtr &msg)
+void dvl_Callback(const cola2_msgs::DVL::ConstPtr &msg)
 {
   speed_X = msg->velocity.x;
   speed_Y = msg->velocity.y;
